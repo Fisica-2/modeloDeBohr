@@ -1,5 +1,6 @@
 from math import *
 from decimal import Decimal, getcontext
+import sys
 
 #Velocidade da luz no vacuo
 c = Decimal(3E8)
@@ -48,41 +49,41 @@ def main():
 """)
     while True:
         entrada = int(input(f"""
-Informe sua entrada:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Informe o que deseja calcular:
+
     [1] Energia do Fóton ({energiaFoton:.3} J)
-    [2] Comprimento de onda do Fóton ({comp:.3} m)
-    [3] Frequencia do Fóton ({freq:.3} Hz)
-    [4] 
-    [5] 
-    [6] 
-    [7] 
---------------------------
+        Comprimento de onda do Fóton ({comp:.3} m)
+        Frequência de onda do Fóton ({freq:.3} Hz)
+        
+    [2] 
+    [3] 
+    [4] Conversor Joule/eV
+    [5] Sair 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     """))
         match entrada:
             case(1):
                 nInicial = int(input("Nivel inicial: "))
                 nFinal = int(input("Nivel final: "))
                 energiaFoton = calculoEnergiaFoton(nInicial, nFinal)
+                comp = calculoComprimentoOnda(energiaFoton)
+                freq = calculoFrequencia(energiaFoton)
+                confirma()
                 
             case(2):
-                energiaFoton = Decimal(input("Digite a energia do Fóton absorvido (em joules): "))
-                comp = calculoComprimentoOnda(energiaFoton)
+                input();
                 
             case(3):
-                energiaFoton = Decimal(input("Digite a energia do Fóton absorvido (em joules): "))
-                freq = calculoFrequencia(energiaFoton)
+                input();
                 
             case(4):
-                input()
+                conversorJoulesEV()
+                confirma()
                 
             case(5):
-                input()
+                break
                 
-            case(6):
-                input()
-                
-            case(7):
-                input()
                 
                 
 #Entradas -------------------------
@@ -106,5 +107,40 @@ def calculoFrequencia(energiaFoton):
     freq = Decimal(energiaFoton / hJ)
     print(f"Frequência: {freq:.3e} Hz")
     return freq
+
+def conversorJoulesEV():
+    opc = input("""
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Informe a entrada:
+
+    [1] Converter Joules em eVs.
+    [2] Converter eVs em Joules.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    """)
+    if(opc == "1"):
+        valor = Decimal(input("Digite o valor em Joules: "))
+        valor *= conversaoJouleParaEv
+        print(f"Resultado: {valor:.3e} eVs")
+    elif(opc == "2"):
+        valor = Decimal(input("Digite o valor em eV: "))
+        valor /= conversaoJouleParaEv
+        print(f"Resultado: {valor:.3e} Joules")
+    else:
+        print("Opção inválida, tente novamente!")
+        
+        
+def confirma():
+    while(True):
+        print("")
+        conf = input("Deseja continuar? (s/n): ")
+        if(conf == "s"):
+            break
+        elif(conf == "n"):
+            print("Saindo do programa...")
+            sys.exit()
+        else:
+            print("Opção inválida, lembre-se de usar apenas 's/n'")
+        
+    
 
 main()
