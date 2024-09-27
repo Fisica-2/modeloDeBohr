@@ -19,9 +19,25 @@ hEv = Decimal(4.136E-15)
 
 Pi = Decimal(str(2*pi))
 
+conversaoJouleParaEv = Decimal(1.60218e-19) # ev pra joule multiplica, o contrario divide
+
+# Formulas # 
+'''
+# Energia do atomo de hidrogênio no modelo de Bohr = -13.6/nivel**2
+# Energia Foton = constPlanck * frequencia = (constPlanck * velocidadeLuz) / comprimento de onda = EnergiaFinal - EnergiaInicial
+
+
+
+'''
+
+
+
 
 
 def main():
+    energiaFoton = 0.0 
+    comp = 0.0 
+    freq = 0.0
     print("""
      ______________________________________________
     | Artur Chaves Paiva       - RA: 22.223.023-7  |
@@ -29,46 +45,66 @@ def main():
     | Leonardo Souza de Castro - RA: 22.123.114-5  |
     |______________________________________________|                                       
 
-Esse programa tem o intuito de calcular algumas propriedades de ondas e campos eletromagnéticos, e usa de diversas fórmulas para um cálculo preciso e eficiente. O programa aceita
-como entrada números em notação cíentifica, usando a notação 1.23E2 (1.23²). Além disso, estamos utilizando a biblioteca decimal para maior precisão nas respostas e operações. 
 """)
     while True:
-        entrada = int(input("""
+        entrada = int(input(f"""
 Informe sua entrada:
-    [1] Em -> Bm, I
-    [2] Bm -> Em, I
-    [3] I  -> Em, Bm
---------------------------
-    [4] f -> λ, k, w
-    [5] λ -> f, k, w
-    [6] w -> f, λ, k
-    [7] k -> f, λ, w
+    [1] Energia do Fóton ({energiaFoton:.3} J)
+    [2] Comprimento de onda do Fóton ({comp:.3} m)
+    [3] Frequencia do Fóton ({freq:.3} Hz)
+    [4] 
+    [5] 
+    [6] 
+    [7] 
 --------------------------
     """))
         match entrada:
             case(1):
-                em = input("Em: ")
+                nInicial = int(input("Nivel inicial: "))
+                nFinal = int(input("Nivel final: "))
+                energiaFoton = calculoEnergiaFoton(nInicial, nFinal)
                 
             case(2):
-                bm = input("Bm: ")
+                energiaFoton = Decimal(input("Digite a energia do Fóton absorvido (em joules): "))
+                comp = calculoComprimentoOnda(energiaFoton)
                 
             case(3):
-                i = input("i: ")
+                energiaFoton = Decimal(input("Digite a energia do Fóton absorvido (em joules): "))
+                freq = calculoFrequencia(energiaFoton)
                 
             case(4):
-                f = input("f: ")
+                input()
                 
             case(5):
-                l = input("λ: ")
+                input()
                 
             case(6):
-                w = input("w: ")
+                input()
                 
             case(7):
-                k = input("k: ")
+                input()
                 
                 
 #Entradas -------------------------
 
+
+
+def calculoEnergiaFoton(nInicial, nFinal): # Calculo da energia do foton absorvido por meio de eFinal - eInicial
+    energia = Decimal((-13.6/pow(nFinal, 2)) - (-13.6/pow(nInicial, 2)))
+    energiaEmJ = Decimal(energia * conversaoJouleParaEv) # conversão de eV para joules
+    print(f"Energia do foton: {energiaEmJ:.3e} J")
+    return energiaEmJ
+
+
+def calculoComprimentoOnda(energiaFoton): # Calculo do comprimento de onda por meio da formula: planck(j) * velocidLuz / energiaFoton
+    comprimento = Decimal( (hJ * c) / energiaFoton )
+    print(f"Comprimento de onda: {comprimento:.3e} m")
+    return comprimento
+
+
+def calculoFrequencia(energiaFoton):
+    freq = Decimal(energiaFoton / hJ)
+    print(f"Frequência: {freq:.3e} Hz")
+    return freq
 
 main()
