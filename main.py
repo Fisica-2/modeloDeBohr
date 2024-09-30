@@ -80,9 +80,11 @@ Informe o que deseja calcular:
                 n = int(input("Digite o valor do nível: "))
                 raio = raioAtomo(n)
                 velocidade = velocidadeAtomo(n)
-                k = energiaCineticaEletron(velocidade)
+                k = energiaCineticaEletron(velocidade, n)
                 u = energiaPotencialEletron(n)
                 e = energiaTotalElétron(n)
+                λ = comprimentoDeOnda(velocidade)
+                confirma()
                 
             case(3):
                 calcN()
@@ -125,23 +127,27 @@ def raioAtomo(n):
     return raioatomo
 
 def velocidadeAtomo(n):
-    velocidade = Decimal(1/pe)*((ce**2)/2*n*hJ)
+    velocidade = Decimal(1/pe)*((ce**2)/(2*n*hJ))
     print(f"Velocidade do elétron: {velocidade:.2e} m/s")
     return velocidade
 
-def energiaCineticaEletron(velocidade):
-    K = Decimal(0.5) * me * Decimal(pow(velocidade,2))
-    print(f"Energia Cinética do Elétron: {K:.2e} J")
+def energiaCineticaEletron(velocidade, n):
+    K = (hEv * c * R) / n**2
+    print(f"Energia Cinética do Elétron: {K:.2e} eV")
     return K
 
 def energiaPotencialEletron(n):
-    U = Decimal(-(1/pe**2)*((me*ce**4)/(4*(n**2)*(hJ**2))))
-    print(f"Energia Potencial do Elétron: {U:.2e} J")
+    U = (-(hEv*c*R) * 2) / n**2
+    print(f"Energia Potencial do Elétron: {U:.2e} eV")
 
 def energiaTotalElétron(n):
-    E = Decimal(-(hJ*c*R)/(n**2))
-    print (f"Energia total do eletron {E:.2e}")
+    E = Decimal(-(hEv*c*R)/(n**2))
+    print (f"Energia total do eletron {E:.2e} eV")
     return E
+
+def comprimentoDeOnda(velocidade):
+    λ = Decimal(hJ / (me * velocidade))
+    print(f"Comprimento de onda: {λ:.2e} m")
 
 def calcN():
     opcao = int(input("""
@@ -160,16 +166,18 @@ Informe os valores de entrada:
     match opcao:
         case(1):
             nInicial = int(input("Nível inicial: "))
-            f = int(input("Frêquancia (Hz): "))
+            f = int(input("Frequência (Hz): "))
         case(2):
             nInicial = Decimal(input("Nível inicial: "))
             λ = Decimal(input("Comprimento de onda (nm): "))
+            print(Decimal((R / (nInicial**2)) - (R * λ)))
         case(3):
             nFinal = int(input("Nível Final: "))
-            f = int(input("Frêquancia (Hz): "))
+            f = int(input("Frequência (Hz): "))
         case(4):
             nFinal = int(input("Nível Final: "))
             λ = Decimal(input("Comprimento de onda (nm): "))
+            print(Decimal(( (R * λ)) - (R / (nFinal ** 2))))
 
 
 def conversorJoulesEV():
