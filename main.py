@@ -5,6 +5,12 @@ import sys
 #Velocidade da luz no vacuo
 c = Decimal(3E8)
 
+#Permitividade elétrica
+pe = Decimal(8.85e-12)
+
+#Carga elétrica do elétron
+ce = Decimal(1.602e-19)
+
 #Massa do eletron
 me = Decimal(9.11E-31)
 
@@ -18,7 +24,10 @@ hJ = Decimal(6.626E-34)
 
 hEv = Decimal(4.136E-15)
 
-Pi = Decimal(str(2*pi))
+Pi = Decimal(pi)
+
+#Constante de Rydberg 
+R = Decimal(1.097e7)
 
 conversaoJouleParaEv = Decimal(1.60218e-19) # ev pra joule multiplica, o contrario divide
 
@@ -30,10 +39,6 @@ conversaoJouleParaEv = Decimal(1.60218e-19) # ev pra joule multiplica, o contrar
 
 
 '''
-
-
-
-
 
 def main():
     energiaFoton = 0.0 
@@ -52,12 +57,12 @@ def main():
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Informe o que deseja calcular:
 
-    [1] Energia do Fóton ({energiaFoton:.3} J)
-        Comprimento de onda do Fóton ({comp:.3} m)
-        Frequência de onda do Fóton ({freq:.3} Hz)
+    [1] Energia do Fóton ({energiaFoton:.2} J)
+        Comprimento de onda do Fóton ({comp:.2} m)
+        Frequência de onda do Fóton ({freq:.2} Hz)
         
-    [2] 
-    [3] 
+    [2] Digite um valor para n:
+    [3] Nível final ou Inicial
     [4] Conversor Joule/eV
     [5] Sair 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -72,10 +77,15 @@ Informe o que deseja calcular:
                 confirma()
                 
             case(2):
-                input();
+                n = int(input("Digite o valor do nível: "))
+                raio = raioAtomo(n)
+                velocidade = velocidadeAtomo(n)
+                k = energiaCineticaEletron(velocidade)
+                u = energiaPotencialEletron(n)
+                e = energiaTotalElétron(n)
                 
             case(3):
-                input();
+                calcN()
                 
             case(4):
                 conversorJoulesEV()
@@ -93,20 +103,74 @@ Informe o que deseja calcular:
 def calculoEnergiaFoton(nInicial, nFinal): # Calculo da energia do foton absorvido por meio de eFinal - eInicial
     energia = Decimal((-13.6/pow(nFinal, 2)) - (-13.6/pow(nInicial, 2)))
     energiaEmJ = Decimal(energia * conversaoJouleParaEv) # conversão de eV para joules
-    print(f"Energia do foton: {energiaEmJ:.3e} J")
+    print(f"Energia do foton: {energiaEmJ:.2e} J")
     return energiaEmJ
 
 
 def calculoComprimentoOnda(energiaFoton): # Calculo do comprimento de onda por meio da formula: planck(j) * velocidLuz / energiaFoton
     comprimento = Decimal( (hJ * c) / energiaFoton )
-    print(f"Comprimento de onda: {comprimento:.3e} m")
+    print(f"Comprimento de onda: {comprimento:.2e} m")
     return comprimento
 
 
 def calculoFrequencia(energiaFoton):
     freq = Decimal(energiaFoton / hJ)
-    print(f"Frequência: {freq:.3e} Hz")
+    print(f"Frequência: {freq:.2e} Hz")
     return freq
+
+def raioAtomo(n):
+    raio = Decimal((hJ**2) / (Pi * me * (ce**2)) * pe)
+    raioatomo = raio * Decimal(n**2)
+    print(f"Raio do átomo: {raioatomo:.2e} m")
+    return raioatomo
+
+def velocidadeAtomo(n):
+    velocidade = Decimal(1/pe)*((ce**2)/2*n*hJ)
+    print(f"Velocidade do elétron: {velocidade:.2e} m/s")
+    return velocidade
+
+def energiaCineticaEletron(velocidade):
+    K = Decimal(0.5) * me * Decimal(pow(velocidade,2))
+    print(f"Energia Cinética do Elétron: {K:.2e} J")
+    return K
+
+def energiaPotencialEletron(n):
+    U = Decimal(-(1/pe**2)*((me*ce**4)/(4*(n**2)*(hJ**2))))
+    print(f"Energia Potencial do Elétron: {U:.2e} J")
+
+def energiaTotalElétron(n):
+    E = Decimal(-(hJ*c*R)/(n**2))
+    print (f"Energia total do eletron {E:.2e}")
+    return E
+
+def calcN():
+    opcao = int(input("""
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Informe os valores de entrada:
+                              
+[1] - Nível inicial e Frêquencia do fóton 
+[2] - Nível inicial e Comprimento de onda do fóton
+[3] - Nível final e Frêquencia do fóton 
+[4] - Nível final e Comprimento de onda do fóton 
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+"""))
+                
+    match opcao:
+        case(1):
+            nInicial = int(input("Nível inicial: "))
+            f = int(input("Frêquancia (Hz): "))
+        case(2):
+            nInicial = Decimal(input("Nível inicial: "))
+            λ = Decimal(input("Comprimento de onda (nm): "))
+        case(3):
+            nFinal = int(input("Nível Final: "))
+            f = int(input("Frêquancia (Hz): "))
+        case(4):
+            nFinal = int(input("Nível Final: "))
+            λ = Decimal(input("Comprimento de onda (nm): "))
+
 
 def conversorJoulesEV():
     opc = input("""
@@ -120,11 +184,11 @@ Informe a entrada:
     if(opc == "1"):
         valor = Decimal(input("Digite o valor em Joules: "))
         valor *= conversaoJouleParaEv
-        print(f"Resultado: {valor:.3e} eVs")
+        print(f"Resultado: {valor:.2e} eVs")
     elif(opc == "2"):
         valor = Decimal(input("Digite o valor em eV: "))
         valor /= conversaoJouleParaEv
-        print(f"Resultado: {valor:.3e} Joules")
+        print(f"Resultado: {valor:.2e} Joules")
     else:
         print("Opção inválida, tente novamente!")
         
