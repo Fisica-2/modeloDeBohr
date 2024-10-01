@@ -41,9 +41,8 @@ conversaoJouleParaEv = Decimal(1.60218e-19) # ev pra joule multiplica, o contrar
 '''
 
 def main():
-    energiaFoton = 0.0 
-    comp = 0.0 
-    freq = 0.0
+    energiaFoton = 0.0; comp = 0.0; freq = 0.0; e = 0.0; raio = 0.0; velocidade = 0.0; k = 0.0;  λ = 0.0; u = 0.0;
+    
     print("""
      ______________________________________________
     | Artur Chaves Paiva       - RA: 22.223.023-7  |
@@ -57,13 +56,23 @@ def main():
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Informe o que deseja calcular:
 
-    [1] Energia do Fóton ({energiaFoton:.2} J)
+    [1] \033[1mDescubra usando n inicial e n final:\033[0m
+        Energia do Fóton ({energiaFoton:.2} J)
         Comprimento de onda do Fóton ({comp:.2} m)
         Frequência de onda do Fóton ({freq:.2} Hz)
         
-    [2] Digite um valor para n:
-    [3] Nível final ou Inicial
+    [2] \033[1mDescubra usando um valor para n:\033[0m
+        Raio do átomo: ({raio:.2})
+        Velocidade do átomo: ({velocidade:.2} m/s)
+        Energia cinética: ({k:.2} eV)
+        Energia Potencial: ({u:.2} eV)
+        Energia total: ({e:.2} eV)
+        Comprimento de onda: ({λ:.2} m)
+           
+    [3] Descobrir nível Final ou Inicial
+    
     [4] Conversor Joule/eV
+    
     [5] Sair 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     """))
@@ -139,6 +148,7 @@ def energiaCineticaEletron(velocidade, n):
 def energiaPotencialEletron(n):
     U = (-(hEv*c*R) * 2) / n**2
     print(f"Energia Potencial do Elétron: {U:.2e} eV")
+    return U
 
 def energiaTotalElétron(n):
     E = Decimal(-(hEv*c*R)/(n**2))
@@ -148,6 +158,7 @@ def energiaTotalElétron(n):
 def comprimentoDeOnda(velocidade):
     λ = Decimal(hJ / (me * velocidade))
     print(f"Comprimento de onda: {λ:.2e} m")
+    return λ
 
 def calcN():
     opcao = int(input("""
