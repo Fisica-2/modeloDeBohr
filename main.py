@@ -177,18 +177,43 @@ Informe os valores de entrada:
     match opcao:
         case(1):
             nInicial = int(input("Nível inicial: "))
-            f = int(input("Frequência (Hz): "))
+            f = Decimal(input("Frequência (Hz): "))
+            energia = hEv*f
+            energiaNivel = Decimal(-(13.6/(nInicial**2)))
+            energiaFinal = energiaNivel+energia
+            nFinalQuadrado = Decimal(13.6)/-energiaFinal
+
+            if nFinalQuadrado < 0 :
+                nFinalQuadrado = nFinalQuadrado*-1
+
+            nFinal = sqrt(nFinalQuadrado)
+            print(nFinal)
+
+
         case(2):
             nInicial = Decimal(input("Nível inicial: "))
-            λ = Decimal(input("Comprimento de onda (nm): "))
-            print(Decimal((R / (nInicial**2)) - (R * λ)))
+            λ = Decimal(input("Comprimento de onda (m): "))
+            # teste = 1/(R * λ)
+            # valorNInicial = 1 / (nInicial**2)
+            # nFinal = 1 / (sqrt((valorNInicial) - teste))
+            energia = (hEv*c)/λ
+            energiaNivel = -(Decimal(13.6)/(nInicial**2))
+            energiaFinal = energiaNivel+energia
+            nFinalQuadrado = Decimal(13.6)/-energiaFinal
+
+            if nFinalQuadrado < 0 :
+                nFinalQuadrado = nFinalQuadrado*-1
+
+            nFinal = sqrt(nFinalQuadrado)
+            print(f"O valor do N final é de {nFinal:.0f}")
         case(3):
             nFinal = int(input("Nível Final: "))
             f = int(input("Frequência (Hz): "))
         case(4):
             nFinal = int(input("Nível Final: "))
-            λ = Decimal(input("Comprimento de onda (nm): "))
-            print(Decimal(( (R * λ)) - (R / (nFinal ** 2))))
+            λ = Decimal(input("Comprimento de onda (m): "))
+            
+            print(f"O valor do N final é de {nInicial:.0f}")
 
 
 def conversorJoulesEV():
