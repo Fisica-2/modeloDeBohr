@@ -178,24 +178,21 @@ Informe os valores de entrada:
         case(1):
             nInicial = int(input("Nível inicial: "))
             f = Decimal(input("Frequência (Hz): "))
-            energia = hEv*f
-            energiaNivel = Decimal(-(13.6/(nInicial**2)))
-            energiaFinal = energiaNivel+energia
-            nFinalQuadrado = Decimal(13.6)/-energiaFinal
-
-            if nFinalQuadrado < 0 :
-                nFinalQuadrado = nFinalQuadrado*-1
-
-            nFinal = sqrt(nFinalQuadrado)
-            print(nFinal)
+            energiaInicial = Decimal(-13.6/(nInicial**2))
+            energiaAbsorvida = Decimal(hEv*f)
+            energiaFinal = energiaInicial + energiaAbsorvida
+            nFinal = Decimal(13.6)/energiaFinal
+            if(nFinal < 0):
+                nFinal *= -1
+            
+            nFinal = sqrt(nFinal)
+        
+            print(f"Nível final: {nFinal:.0f}")
 
 
         case(2):
             nInicial = Decimal(input("Nível inicial: "))
             λ = Decimal(input("Comprimento de onda (m): "))
-            # teste = 1/(R * λ)
-            # valorNInicial = 1 / (nInicial**2)
-            # nFinal = 1 / (sqrt((valorNInicial) - teste))
             energia = (hEv*c)/λ
             energiaNivel = -(Decimal(13.6)/(nInicial**2))
             energiaFinal = energiaNivel+energia
@@ -208,10 +205,30 @@ Informe os valores de entrada:
             print(f"O valor do N final é de {nFinal:.0f}")
         case(3):
             nFinal = int(input("Nível Final: "))
-            f = int(input("Frequência (Hz): "))
+            f = Decimal(input("Frequência (Hz): "))
+            energiaFinal = Decimal(-13.6/(nFinal**2))
+            energiaAbsorvida = Decimal(hEv*f)
+            energiaInicial = energiaFinal - energiaAbsorvida
+            nInicial = Decimal(13.6)/energiaInicial
+            if(nInicial < 0):
+                nInicial *= -1
+            
+            nInicial = sqrt(nInicial)
+        
+            print(f"Nível Inicial: {nInicial:.0f}")
         case(4):
             nFinal = int(input("Nível Final: "))
             λ = Decimal(input("Comprimento de onda (m): "))
+
+            energiaAbsorvida = (hEv*c)/λ
+            energiaFinal = -(Decimal(13.6)/(nFinal**2))
+            energiaInicial = energiaFinal - energiaAbsorvida
+
+            nInicial = Decimal(13.6)/energiaInicial
+            if(nInicial < 0):
+                nInicial *= -1
+
+            nInicial = sqrt(nInicial)
             
             print(f"O valor do N final é de {nInicial:.0f}")
 
