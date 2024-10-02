@@ -41,15 +41,28 @@ conversaoJouleParaEv = Decimal(1.60218e-19) # ev pra joule multiplica, o contrar
 '''
 
 def main():
-    energiaFoton = 0.0; comp = 0.0; freq = 0.0; e = 0.0; raio = 0.0; velocidade = 0.0; k = 0.0;  λ = 0.0; u = 0.0;
     
     print("""
      ______________________________________________
     | Artur Chaves Paiva       - RA: 22.223.023-7  |
     | Giovanni Antonio Moreira - RA: 22.223.010-4  |
     | Leonardo Souza de Castro - RA: 22.123.114-5  |
-    |______________________________________________|                                       
+    |______________________________________________|
 
+
+O código implementa um simulador baseado no modelo de Bohr, que descreve
+o comportamento de elétrons em átomos, especialmente no hidrogênio. 
+As funções calculam propriedades como energia do fóton, comprimento de 
+onda, frequência, raio do átomo e energia cinética do elétron, utilizando
+constantes fundamentais da física.
+
+As entradas incluem níveis quânticos, frequência ou comprimento de onda
+de fótons, e permitem cálculos de transições entre estados energéticos.
+As saídas apresentam resultados em unidades de energia (joules e eV), 
+comprimento de onda e frequência. O modelo de Bohr, ao estabelecer que 
+os elétrons orbitam em níveis discretos, explica a quantização da energia
+e a emissão ou absorção de fótons durante as transições entre esses níveis.
+          
 """)
     while True:
         entrada = int(input(f"""
@@ -68,14 +81,6 @@ Informe a entrada:
     """))
         match entrada:
             case(1):
-                nInicial = int(input("Nivel inicial: "))
-                nFinal = int(input("Nivel final: "))
-                energiaFoton = calculoEnergiaFoton(nInicial, nFinal)
-                calculoComprimentoOnda(energiaFoton)
-                calculoFrequencia(energiaFoton)
-                confirma()
-                
-            case(2):
                 n = int(input("Digite o valor do nível: "))
                 raio = raioAtomo(n)
                 velocidade = velocidadeAtomo(n)
@@ -84,6 +89,15 @@ Informe a entrada:
                 e = energiaTotalElétron(n)
                 λ = comprimentoDeOnda(velocidade)
                 confirma()
+                
+            case(2):
+                nInicial = int(input("Nivel inicial: "))
+                nFinal = int(input("Nivel final: "))
+                energiaFoton = calculoEnergiaFoton(nInicial, nFinal)
+                calculoComprimentoOnda(energiaFoton)
+                calculoFrequencia(energiaFoton)
+                confirma()
+                
                 
             case(3):
                 absorcaoCalcN()
@@ -193,7 +207,7 @@ Informe os valores de entrada:
                 nFinalQuadrado = nFinalQuadrado*-1
 
             nFinal = sqrt(nFinalQuadrado)
-            print(f"O valor do N final é de {nFinal:.0f}")   
+            print(f"Nível Final: {nFinal:.0f}")   
                    
         case(3):
             nFinal = int(input("Nível Final: "))
@@ -223,7 +237,7 @@ Informe os valores de entrada:
 
             nInicial = sqrt(nInicial)
             
-            print(f"O valor do N final é de {nInicial:.0f}")
+            print(f"Nível Inicial: {nInicial:.0f}")
 
 def transicaoCalcN():
     opcao = int(input("""
@@ -298,12 +312,6 @@ Informe os valores de entrada:
             nFinal = sqrt(nFinalQuadrado)
             print(f"Nivel Inicial: {nFinal:.0f}")
             
-
-# entra frequencia sai energia foton - h*f (eV/j)
-# entra λ sai energia foton - (h*c)/λ (eV/j)
-# entra energia foton(j/eV) sai frequencia(hz) e comprimento de onda(m) - usar formulas de cima
-
-
 def calculoEnergiaFreqCompr():
     opcao = int(input("""
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -325,7 +333,7 @@ Informe os valores de entrada:
             print(f"Energia em Elétron-Volts: {energiaEmEV:.2e} eV")
             
         case(2):
-            λ = Decimal(input("λ(m): "))
+            λ = Decimal(input("Comprimento de onda(m): "))
             energiaEmJ = (hJ * c) / λ
             energiaEmEV = energiaEmJ / conversaoJouleParaEv
             print(f"Energia em Joules: {energiaEmJ:.2e} J")
@@ -348,14 +356,14 @@ Informe a entrada:
                     freq = energiaJ / hJ
                     λ = (hJ * c) / energiaJ
                     print(f"Frequência: {freq:.2e} Hz")
-                    print(f"λ = {λ:.2e} m")
+                    print(f"Comprimento de onda: {λ:.2e} m")
                 
                 case(2):
                     energiaJ = Decimal(input("Energia(J): "))
                     freq = energiaJ / hJ
                     λ = (hJ * c) / energiaJ
                     print(f"Frequência: {freq:.2e} Hz")
-                    print(f"λ = {λ:.2e} m")
+                    print(f"Comprimento de onda: {λ:.2e} m")
                 
                 case _:
                     print("Entrada inválida, tente novamente")
@@ -377,7 +385,7 @@ Informe a entrada:
         valor /= conversaoJouleParaEv
         print(f"Resultado: {valor:.2e} eVs")
     elif(opc == "2"):
-        valor = Decimal(input("Digite o valor em eV: "))
+        valor = Decimal(input("Digite o valor em eVs: "))
         valor *= conversaoJouleParaEv
         print(f"Resultado: {valor:.2e} Joules")
     else:
