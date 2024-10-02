@@ -56,26 +56,25 @@ def main():
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Informe o que deseja calcular:
 
-    [1] \033[1mDescubra usando n inicial e n final:\033[0m
-        Energia do Fóton ({energiaFoton:.2} J)
-        Comprimento de onda do Fóton ({comp:.2} m)
-        Frequência de onda do Fóton ({freq:.2} Hz)
+    [1] Digite usando n inicial e n final.
         
-    [2] \033[1mDescubra usando um valor para n:\033[0m
-        Raio do átomo: ({raio:.2})
-        Velocidade do átomo: ({velocidade:.2} m/s)
-        Energia cinética: ({k:.2} eV)
-        Energia Potencial: ({u:.2} eV)
-        Energia total: ({e:.2} eV)
-        Comprimento de onda: ({λ:.2} m)
+    [2] Digite usando um valor para n.
            
-    [3] Descobrir nível Final ou Inicial
+    [3] Digite nível Final ou Inicial para absorção.
     
-    [4] Conversor Joule/eV
+    [4] Digite nível Final ou Inicial para transição.
+                            
+    [5] Digite F(Hz), λ(m) ou E(J ou eV). 
+                            
+    [6] Conversor Joule/eV
     
-    [5] Sair 
+    [7] Sair 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     """))
+    # entra frequencia sai energia foton - h*f (eV/j)
+    # entra λ sai energia foton - (h*c)/λ (eV/j)
+    # entra energia foton(j/eV) sai frequencia(hz) e comprimento de onda(m) - usar formulas de cima
+
         match entrada:
             case(1):
                 nInicial = int(input("Nivel inicial: "))
@@ -97,6 +96,7 @@ Informe o que deseja calcular:
                 
             case(3):
                 calcN()
+                confirma()
                 
             case(4):
                 conversorJoulesEV()
@@ -114,7 +114,7 @@ Informe o que deseja calcular:
 def calculoEnergiaFoton(nInicial, nFinal): # Calculo da energia do foton absorvido por meio de eFinal - eInicial
     energia = Decimal((-13.6/pow(nFinal, 2)) - (-13.6/pow(nInicial, 2)))
     energiaEmJ = Decimal(energia * conversaoJouleParaEv) # conversão de eV para joules
-    print(f"Energia do foton: {energiaEmJ:.2e} J")
+    print(f"Energia do foton: {energiaEmJ:.2e} J ou {energia:.2e} eV")
     return energiaEmJ
 
 
@@ -202,7 +202,7 @@ Informe os valores de entrada:
                 nFinalQuadrado = nFinalQuadrado*-1
 
             nFinal = sqrt(nFinalQuadrado)
-            print(f"O valor do N final é de {nFinal:.0f}")
+            print(f"O valor do N final é de {nFinal:.0f}")          
         case(3):
             nFinal = int(input("Nível Final: "))
             f = Decimal(input("Frequência (Hz): "))
@@ -244,11 +244,11 @@ Informe a entrada:
     """)
     if(opc == "1"):
         valor = Decimal(input("Digite o valor em Joules: "))
-        valor *= conversaoJouleParaEv
+        valor /= conversaoJouleParaEv
         print(f"Resultado: {valor:.2e} eVs")
     elif(opc == "2"):
         valor = Decimal(input("Digite o valor em eV: "))
-        valor /= conversaoJouleParaEv
+        valor *= conversaoJouleParaEv
         print(f"Resultado: {valor:.2e} Joules")
     else:
         print("Opção inválida, tente novamente!")
