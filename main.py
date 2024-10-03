@@ -69,8 +69,8 @@ e a emissão ou absorção de fótons durante as transições entre esses nívei
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Informe a entrada:
 
-    [1] Digite n inicial e n final.        
-    [2] Digite um valor para n.           
+    [1] Digite um valor para n.                     
+    [2] Digite n inicial e n final.                 
     [3] Digite nível Final ou Inicial para absorção.   
     [4] Digite nível Final ou Inicial para emissão.                            
     [5] Digite F(Hz), λ(m) ou E(J ou eV).                             
