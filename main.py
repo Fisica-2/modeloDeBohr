@@ -32,10 +32,20 @@ R = Decimal(1.097e7)
 conversaoJouleParaEv = Decimal(1.60218e-19) # ev pra joule multiplica, o contrario divide
 
 # Formulas # 
+
+
+
 '''
 # Energia do atomo de hidrogênio no modelo de Bohr = -13.6/nivel**2
 # Energia Foton = constPlanck * frequencia = (constPlanck * velocidadeLuz) / comprimento de onda = EnergiaFinal - EnergiaInicial
-
+Ondas de Rádio: Menor que 
+# 1. Ondas de Rádio: Menor que 3 * 10e9 Hz
+# 2. Micro-ondas: 3 * 10^9 Hz a 3 * 10e11 Hz
+# 3. Infravermelho: 3 * 10^11 Hz a 4 * 10e14 Hz
+# 4. Luz Visível: 4 * 10^14 Hz a 7.5 * 10e14 Hz
+# 5. Ultravioleta: 7.5 * 10^14 Hz a 3 * 10e16 Hz
+# 6. Raios-X: 3 * 10^16 Hz a 3 * 10e19 Hz
+# 7. Raios Gama: Maior que 3 * 10e19 Hz
 
 
 '''
