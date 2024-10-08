@@ -43,6 +43,12 @@ Ondas de Rádio: Menor que
 # 2. Micro-ondas: 3 * 10^9 Hz a 3 * 10e11 Hz
 # 3. Infravermelho: 3 * 10^11 Hz a 4 * 10e14 Hz
 # 4. Luz Visível: 4 * 10^14 Hz a 7.5 * 10e14 Hz
+    # 1. Vermelho: 4.0 × 10^14 Hz
+    # 2. Laranja: 4.8 × 10^14 Hz
+    # 3. Amarelo: 5.1 × 10^14 Hz
+    # 4. Verde: 5.5 × 10^14 Hz
+    # 5. Azul: 6.3 × 10^14 Hz
+    # 6. Violeta: 7.5 × 10^14 Hz
 # 5. Ultravioleta: 7.5 * 10^14 Hz a 3 * 10e16 Hz
 # 6. Raios-X: 3 * 10^16 Hz a 3 * 10e19 Hz
 # 7. Raios Gama: Maior que 3 * 10e19 Hz
