@@ -2,6 +2,10 @@ from math import *
 from decimal import Decimal, getcontext
 import sys
 
+#Emissao -> valores menores que o informado no exercicio
+#Absorção -> valores maiores que o informado no exercicio
+
+
 #Velocidade da luz no vacuo
 c = Decimal(3E8)
 
